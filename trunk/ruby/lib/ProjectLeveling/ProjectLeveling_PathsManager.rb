@@ -107,7 +107,7 @@ module ProjectLeveling
         rResult = nil
 
         # Get the list of sub-shifted tasks' importances and delays for each consequences
-        # list< [ Importace, Delay, list< ShiftedTaskConsequences > ] >
+        # list< [ Importance, Delay, list< ShiftedTaskConsequences > ] >
         lSelfSubImportancesList = ShiftedTaskConsequences_Type.getSubImportancesDelaysList(iSelfShiftedTaskConsequencesList)
         lOtherSubImportancesList = ShiftedTaskConsequences_Type.getSubImportancesDelaysList(iOtherShiftedTaskConsequencesList)
         # Now we process each level of importance/delay
@@ -117,10 +117,10 @@ module ProjectLeveling
             if (lSelfSubImportancesList.size == lIdxImportance)
               rResult = 0
             else
-              rResult = -1
+              rResult = 1
             end
           elsif (lSelfSubImportancesList.size == lIdxImportance)
-            rResult = 1
+            rResult = -1
           else
             lSelfImportance, lSelfDelay, lSelfConsequencesList = lSelfSubImportancesList[lIdxImportance]
             lOtherImportance, lOtherDelay, lOtherConsequencesList = lOtherSubImportancesList[lIdxImportance]
@@ -912,7 +912,7 @@ module ProjectLeveling
       # 1.
       lBranchesList, lConsequences = PathsManager.findSmallestShiftedConsequencesPaths(iAlreadyTriedPaths)
       if ($Debug)
-        puts "#{lBranchesList.size} possible paths have been found minimizing shifted importance (#{lConsequences.MaximalShiftedImportance}):"
+        puts "#{lBranchesList.size} possible paths have been found minimizing consequences (Maximal shifted importance #{lConsequences.MaximalShiftedImportance}):"
         lIdx = 0
         lBranchesList.each do |iPathInfo|
           PathsManager.displayPath(iPathInfo[0], "- #{lIdx}: ")
@@ -947,7 +947,7 @@ module ProjectLeveling
     # * <em>PathNode_Type</em>: Its corresponding path node to force.
     def self.getBestPathAmongBestShiftedImportancePaths(iAlreadyTriedPaths, iCurrentTasksList, iBestPaths)
       if ($Debug)
-        puts "#{iBestPaths.size} paths have to be considered to get the best one, as they all shift the minimal importance:"
+        puts "#{iBestPaths.size} paths have to be considered to get the best one, as they all shift the same minimal consequences:"
         lIdx = 0
         iBestPaths.each do |iPathInfo|
           PathsManager.displayPath(iPathInfo[0], "- #{lIdx}: ")
@@ -1125,14 +1125,26 @@ module ProjectLeveling
       # 1.
       rBestPaths = []
       rBestConsequences = nil
+      if ($Debug)
+        puts 'Find smallest consequences.'
+      end
       # 2.
       iCurrentPathNode.TaskPaths.each do |iTask, iIterationPossibilities|
         if (iIterationPossibilities != nil)
           iIterationPossibilities.Iterations.each do |iIterationNbr, iPathPossibilities|
+            if ($Debug)
+              puts "----- [ #{iTask.Name}, #{iIterationNbr} ] - Look into the sub tree..."
+            end
             # 2.1.
             lBestSubPaths, lBestSubConsequences = PathsManager.findSmallestShiftedConsequencesPaths(iCurrentPathNode.TaskPaths[iTask].Iterations[iIterationNbr])
+            if ($Debug)
+              puts "----- [ #{iTask.Name}, #{iIterationNbr} ] - Retrieved #{lBestSubPaths.size} best paths from the sub tree."
+            end
             # 2.2.
             if (lBestSubPaths.empty?)
+              if ($Debug)
+                puts "----- [ #{iTask.Name}, #{iIterationNbr} ] - Considering our own consequences."
+              end
               # 2.2.1.
               lConsequences = iCurrentPathNode.TaskPaths[iTask].Iterations[iIterationNbr].Consequences
               lNewBranch = [ SolutionManager::AssignedTaskID_Type.new(iTask, iIterationNbr) ] + iCurrentPathNode.TaskPaths[iTask].RemainingTasks
@@ -1142,13 +1154,21 @@ module ProjectLeveling
                 lDiffConsequences = (lConsequences <=> rBestConsequences)
               end
               if (lDiffConsequences < 0)
+                if ($Debug)
+                  puts "----- [ #{iTask.Name}, #{iIterationNbr} ] - Our own consequences are smaller than previously found. Replace previously found."
+                end
                 # 2.2.2.1.
                 rBestPaths = [ [ lNewBranch, iCurrentPathNode.TaskPaths[iTask].Iterations[iIterationNbr] ] ]
                 rBestConsequences = lConsequences
               # 2.2.3.
               elsif (lDiffConsequences == 0)
+                if ($Debug)
+                  puts "----- [ #{iTask.Name}, #{iIterationNbr} ] - Our own consequences are equal to the ones previously found. Add them to the list."
+                end
                 # 2.2.3.1.
                 rBestPaths << [ lNewBranch, iCurrentPathNode.TaskPaths[iTask].Iterations[iIterationNbr] ]
+              elsif ($Debug)
+                puts "----- [ #{iTask.Name}, #{iIterationNbr} ] - Our own consequences are bigger than previously found. Forget them."
               end
             # 2.3.
             else
@@ -1158,6 +1178,9 @@ module ProjectLeveling
                 lDiffConsequences = (lBestSubConsequences <=> rBestConsequences)
               end
               if (lDiffConsequences < 0)
+                if ($Debug)
+                  puts "----- [ #{iTask.Name}, #{iIterationNbr} ] - Returned consequences are smaller than previously found. Replace previously found."
+                end
                 # 2.3.1.1.
                 lAddedList = [ SolutionManager::AssignedTaskID_Type.new(iTask, iIterationNbr) ]
                 rBestPaths = []
@@ -1167,11 +1190,16 @@ module ProjectLeveling
                 rBestConsequences = lBestSubConsequences
               # 2.3.2.
               elsif (lDiffConsequences == 0)
+                if ($Debug)
+                  puts "----- [ #{iTask.Name}, #{iIterationNbr} ] - Returned consequences are equal to the ones previously found. Add them to the list."
+                end
                 # 2.3.2.1.
                 lAddedList = [ SolutionManager::AssignedTaskID_Type.new(iTask, iIterationNbr) ]
                 lBestSubPaths.each do |iPathInfo|
                   rBestPaths << [ lAddedList + iPathInfo[0], iPathInfo[1] ]
                 end
+              elsif ($Debug)
+                puts "----- [ #{iTask.Name}, #{iIterationNbr} ] - Returned consequences are bigger than previously found. Forget them."
               end
             end
           end

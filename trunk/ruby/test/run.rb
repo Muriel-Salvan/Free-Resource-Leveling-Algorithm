@@ -559,6 +559,104 @@ module ProjectLeveling
           [ 'T12', 'R10', 60,  7, ['T11'], '======='] ] )
     end
     
+    # Case testing 2 cycles while reordering in the same partition. This forces the algorithm to force 2 times already tried paths that were not optimal. The 2 paths forced are not related (the second is not among the sub-tree of the first one).
+    def test2CycleReorderingSamePartition
+      executeSimpleTest(
+        [ [ 'T1', 'R1', 500,  2, ['T2'], '  =='],
+          [ 'T2', 'R2', 600,  2, ['T3'], '    =='],
+          [ 'T3', 'R3', 900,  2, [],     '      =='],
+          [ 'T4', 'R4', 100,  3, ['T2'], '==='],
+          [ 'T5', 'R5', 200,  6, ['T3'], '======'],
+          [ 'T6', 'R1', 550,  2, ['T7'], '=='],
+          [ 'T7', 'R6', 1000, 2, [],     '     =='],
+          [ 'T8', 'R7', 300,  5, ['T7'], '====='],
+          [ 'T9', 'R1', 700,  2, [],     '    =='] ] )
+    end
+    
+    # Case that takes into account interchangeable days will modify the importances computed to build the already tried paths.
+    # This mixes the 2 changes: InterchangeableDay and InvalidatedAlreadyTriedPaths.
+    # Depends on testSplitInterchangeableDay
+    # Depends on testInvalidatedAlreadyTriedPathsDueToResourcesConflict
+    def testInterchangeableDayInvalidatesAlreadyTriedPaths
+      # TODO: Code the interchangeable days and already tried paths invalidated feature, and uncomment after
+#      executeSimpleTest(
+#        [ [ 'T1', 'R1', 100,  2, ['T2'],       '  =='],
+#          [ 'T2', 'R3', 500,  2, [],           '    =='],
+#          [ 'T3', 'R1', 200,  2, ['T4', 'T5'], '=='],
+#          [ 'T4', 'R4', 300,  2, [],           '  =='],
+#          [ 'T5', 'R2', 600,  2, [],           '  =   ='],
+#          [ 'T6', 'R2', 50,   5, ['T7'],       '== ==='],
+#          [ 'T7', 'R5', 1000, 2, [],           '      =='],
+#          [ 'T8', 'R6', 400,  6, ['T7'],       '======'] ] )
+      # TODO: Code the already tried paths invalidated feature (without having interchangeable days feature), and uncomment after
+#      executeSimpleTest(
+#        [ [ 'T1', 'R1', 100,  2, ['T2'],       '=='],
+#          [ 'T2', 'R3', 500,  2, [],           '  =='],
+#          [ 'T3', 'R1', 200,  2, ['T4', 'T5'], '  =='],
+#          [ 'T4', 'R4', 300,  2, [],           '    =='],
+#          [ 'T5', 'R2', 600,  2, [],           '     =='],
+#          [ 'T6', 'R2', 50,   5, ['T7'],       '====='],
+#          [ 'T7', 'R5', 1000, 2, [],           '      =='],
+#          [ 'T8', 'R6', 400,  6, ['T7'],       '======'] ] )
+      executeSimpleTest(
+        [ [ 'T1', 'R1', 100,  2, ['T2'],       '  =='],
+          [ 'T2', 'R3', 500,  2, [],           '    =='],
+          [ 'T3', 'R1', 200,  2, ['T4', 'T5'], '=='],
+          [ 'T4', 'R4', 300,  2, [],           '  =='],
+          [ 'T5', 'R2', 600,  2, [],           '     =='],
+          [ 'T6', 'R2', 50,   5, ['T7'],       '====='],
+          [ 'T7', 'R5', 1000, 2, [],           '      =='],
+          [ 'T8', 'R6', 400,  6, ['T7'],       '======'] ] )
+    end
+    
+    # Case that tests the already tried paths tree invalidated due to a further successors' shift, that changes importances used for the paths' tree.
+    def testInvalidatedAlreadyTriedPathsDueToDependencies
+      # TODO: Code the already tried paths invalidated feature, and uncomment after
+#      executeSimpleTest(
+#        [ [ 'T1', 'R3', 10,  3, ['T2'],       '==='],
+#          [ 'T2', 'R4', 500, 2, [],           '    =='],
+#          [ 'T3', 'R1', 600, 2, ['T2'],       '=='],
+#          [ 'T4', 'R1', 400, 2, ['T2', 'T7'], '  =='],
+#          [ 'T5', 'R2', 300, 2, ['T2', 'T7'], '=='],
+#          [ 'T6', 'R2', 200, 2, ['T7'],       '  =='],
+#          [ 'T7', 'R5', 700, 2, [],           '    =='],
+#          [ 'T8', 'R6', 20,  3, ['T7'],       '==='] ] )
+      executeSimpleTest(
+        [ [ 'T1', 'R3', 10,  3, ['T2'],       '==='],
+          [ 'T2', 'R4', 500, 2, [],           '    =='],
+          [ 'T3', 'R1', 600, 2, ['T2'],       '  =='],
+          [ 'T4', 'R1', 400, 2, ['T2', 'T7'], '=='],
+          [ 'T5', 'R2', 300, 2, ['T2', 'T7'], '=='],
+          [ 'T6', 'R2', 200, 2, ['T7'],       '  =='],
+          [ 'T7', 'R5', 700, 2, [],           '    =='],
+          [ 'T8', 'R6', 20,  3, ['T7'],       '==='] ] )
+    end
+    
+    # Case that tests the already tried paths tree invalidated due to a further resources' conflict, that changes importances used for the paths' tree.
+    def testInvalidatedAlreadyTriedPathsDueToResourcesConflict
+      # TODO: Code the already tried paths invalidated feature, and uncomment after
+#      executeSimpleTest(
+#        [ [ 'T1', 'R3', 10,   3, ['T2'],       '==='],
+#          [ 'T2', 'R4', 450,  2, [],           '    =='],
+#          [ 'T3', 'R1', 400,  2, ['T2', 'T4'], '  =='],
+#          [ 'T4', 'R2', 1000, 2, [],           '    =='],
+#          [ 'T5', 'R5', 20,   3, ['T4'],       '==='],
+#          [ 'T6', 'R1', 500,  2, [],           '=='],
+#          [ 'T7', 'R2', 30,   4, ['T8'],       '===='],
+#          [ 'T8', 'R6', 1100, 2, [],           '     =='],
+#          [ 'T9', 'R7', 40,   5, ['T8'],       '====='] ] )
+      executeSimpleTest(
+        [ [ 'T1', 'R3', 10,   3, ['T2'],       '==='],
+          [ 'T2', 'R4', 450,  2, [],           '   =='],
+          [ 'T3', 'R1', 400,  2, ['T2', 'T4'], '=='],
+          [ 'T4', 'R2', 1000, 2, [],           '    =='],
+          [ 'T5', 'R5', 20,   3, ['T4'],       '==='],
+          [ 'T6', 'R1', 500,  2, [],           '  =='],
+          [ 'T7', 'R2', 30,   4, ['T8'],       '===='],
+          [ 'T8', 'R6', 1100, 2, [],           '     =='],
+          [ 'T9', 'R7', 40,   5, ['T8'],       '====='] ] )
+    end
+    
     # TODO: Regression testing the choice between several possible resources
 
   end
