@@ -1,5 +1,5 @@
 #--
-# Copyright (c) 2007 - 2011 Muriel Salvan (murielsalvan@users.sourceforge.net)
+# Copyright (c) 2007 - 2012 Muriel Salvan (muriel@x-aeon.com)
 # Licensed under the terms specified in LICENSE file. No warranty is provided.
 #++
 # Usage:
@@ -15,7 +15,7 @@ module ProjectLeveling
 
     # Execute a test
     #
-    # Parameters:
+    # Parameters::
     # * *iTasksList* (<em>list<Task></em>): The tasks list
     # * *iProject* (_Project_): The project information
     # * *iExpectedResult* (<em>map< Task, map< Date, map< Resource, Integer > > ></em>): The expected result (the hours worked per resource, per day, per task.
@@ -132,7 +132,7 @@ module ProjectLeveling
 
     # Display a simple way of an assignment info
     #
-    # Parameters:
+    # Parameters::
     # * *iProject* (_Project_): The project
     # * *iAssignmentInfo* (<em>map<Task,AssignmentInfoPerTask_Type></em>): The assignment info
     def displaySimpleAssignment(iProject, iAssignmentInfo)
@@ -185,8 +185,8 @@ module ProjectLeveling
 
     # Execute a simple test data, covering the majority of regression cases
     #
-    # Parameters:
-    # * *iSimpleTestData* (<em>list<[String,String,Integer,Integer,list<String>,String]></em>): The data: a list of tuples [ Task name, Resource name, Priority, Sizing, Successors' names list, Final assignment string ]
+    # Parameters::
+    # * *iSimpleTestData* (<em>list< [String,String,Integer,Integer,list<String>,String] ></em>): The data: a list of tuples [ Task name, Resource name, Priority, Sizing, Successors' names list, Final assignment string ]
     def executeSimpleTest(iSimpleTestData)
       lMaxDays = 10
       lFirstDay = Date.new(2000, 1, 1)

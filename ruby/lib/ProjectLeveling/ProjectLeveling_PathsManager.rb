@@ -1,5 +1,5 @@
 #--
-# Copyright (c) 2007 - 2011 Muriel Salvan (murielsalvan@users.sourceforge.net)
+# Copyright (c) 2007 - 2012 Muriel Salvan (muriel@x-aeon.com)
 # Licensed under the terms specified in LICENSE file. No warranty is provided.
 #++
 
@@ -36,7 +36,7 @@ module ProjectLeveling
       # Method adding a new sub shifted task consequences.
       # This consequence is impossible.
       #
-      # Parameters:
+      # Parameters::
       # * *iSubShiftedTask* (_Task_): The task being shifted
       def addImpossibleSubShiftedTask(iSubShiftedTask)
         @ShiftedTasks[iSubShiftedTask] = ShiftedTaskConsequences_Type.new
@@ -45,7 +45,7 @@ module ProjectLeveling
 
       # Method adding a new shifted task consequences. It will update PossibleConsequence, MaximalShiftedImportance and DelayOfMaximalShiftedImportance accordingly
       #
-      # Parameters:
+      # Parameters::
       # * *iShiftedTask* (_Task_): The task being shifted
       # * *iShiftedTaskConsequences* (<em>ShiftedTaskConsequences_Type</em>): The shifted task consequences
       def addShiftedTask(iShiftedTask, iShiftedTaskConsequences)
@@ -75,7 +75,7 @@ module ProjectLeveling
       # 6. The same as points 3., 4., 5., with the next biggest importance/delay shifted, and so on (recursively), then (in case of equality)
       # 7. Nothing, they are equal
       #
-      # Parameters:
+      # Parameters::
       # * *iShiftedTaskConsequences* (<em>ShiftedTaskConsequences_Type</em>): The other shifted task consequences
       # Result:
       # * _Integer_: 0, 1 or -1 as comparison
@@ -102,7 +102,7 @@ module ProjectLeveling
       
       # Compares 2 different set of sub shifted task consequences
       #
-      # Parameters:
+      # Parameters::
       # * *iSelfShiftedTaskConsequencesList* (<em>list<ShiftedTaskConsequences_Type></em>): The first list
       # * *iOtherShiftedTaskConsequencesList* (<em>list<ShiftedTaskConsequences_Type></em>): The second list
       # Result:
@@ -169,10 +169,10 @@ module ProjectLeveling
       
       # Get the complete list of sub-shifted task consequences from a list, sorted by decreasing importance and decreasing delay
       #
-      # Parameters:
+      # Parameters::
       # * *iTasksConsequencesList* (<em>list<ShiftedTaskConsequences_Type></em>): The list of shifted tasks consequences
-      # Return:
-      # * <em>list<[Integer,Integer,list<ShiftedTaskConsequences_Type>]></em>: The list
+      # Return::
+      # * <em>list< [Integer,Integer,list<ShiftedTaskConsequences_Type>] ></em>: The list
       def self.getSubImportancesDelaysList(iTasksConsequencesList)
         rResult = []
         
@@ -238,7 +238,7 @@ module ProjectLeveling
       
       # Compares 2 shifted task info
       #
-      # Parameters:
+      # Parameters::
       # * *iShiftedTaskInfo* (<em>ShiftedTaskInfo_Type</em>): The other shifted task info
       # Result:
       # * _Integer_: 0, 1 or -1 as comparison
@@ -282,7 +282,7 @@ module ProjectLeveling
       
       # Constructor
       #
-      # Parameters:
+      # Parameters::
       # * *iConsequences* (<em>ShiftedTaskConsequences_Type</em>): The consequences of this assignment
       # * *iPathMinimalImportance* (_Integer_): The path minimal importance
       # * *iTaskPaths* (<em>map<Task,TaskAssignmentPossibilities_Type></em>): The new task paths
@@ -320,7 +320,7 @@ module ProjectLeveling
       
       # Constructor
       #
-      # Parameters:
+      # Parameters::
       # * *iInitialTaskImportance* (_Integer_): The importance of the task
       def initialize(iInitialTaskImportance)
         @InitialTaskImportance = iInitialTaskImportance
@@ -337,7 +337,7 @@ module ProjectLeveling
     
       # Display an already tried path
       #
-      # Parameters:
+      # Parameters::
       # * *iTree* (<em>PathNode_Type</em>): The tree
       # * *iPrefix* (_String_): The prefix used in display. This is used for indentation purposes. [optional = '']
       # * *iNodeToMark* (<em>map<Task,IterationPossibilites_Type></em>): The node that we want to locate. [optional = nil]
@@ -400,7 +400,7 @@ module ProjectLeveling
       
       # Display a path of AssignedTaskID
       #
-      # Parameters:
+      # Parameters::
       # * *iPath* (<em>list<AssignedTaskID_Type></em>): The path
       # * *iStrPrefix* (_String_): The display prefix. [optional = '']
       def self.displayPath(iPath, iStrPrefix = '')
@@ -409,7 +409,7 @@ module ProjectLeveling
       
       # Display task assignment consequences
       #
-      # Parameters:
+      # Parameters::
       # * *iTask* (_Task_): The task for which we display the consequences
       # * *iShiftedTaskConsequences* (<em>ShiftedTaskConsequences_Type</em>): The task assignment consequences
       # * *iStrPrefix* (_String_): The prefix to display
@@ -436,7 +436,7 @@ module ProjectLeveling
       
       # Display a shifted tasks list
       #
-      # Parameters:
+      # Parameters::
       # * *iShiftedTasksList* (<em>list<ShiftedTaskInfo_Type></em>): The list to display
       def self.displayShiftedTasksList(iShiftedTasksList)
         iShiftedTasksList.each do |iShiftedTaskInfo|
@@ -448,11 +448,11 @@ module ProjectLeveling
     
     # Find a better path among the already tried paths
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (_Task_): The task that leads to a non-optimized path.
     # * *iCurrentPathNode* (<em>PathNode_Type</em>: The current node in the tree of already tried paths
     # * *iCurrentTasksList* (<em>list<AssignedTaskID_Type></em>): The list of tasks currently ordered.
-    # Return:
+    # Return::
     # * <em>list<AssignedTaskID_Type></em>: The new sort of tasks (or nil, if impossible to find)
     def self.findPossibleBetterPathForTask(iTask, iCurrentPathNode, iCurrentTasksList)
       # 1.
@@ -570,7 +570,7 @@ module ProjectLeveling
 
     # Method that gets the list of shifted tasks, along with information about their shift (the task that has shifted it, and the importance and delay of the shift).
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (_Task_): The task for which we want to gather the shifted tasks list.
     # * *iAlreadyTriedPaths* (<em>PathNode_Type</em>): The path node to parse.
     # * *iNbrTasksToAssign* (_Integer_): The number of remaining tasks in the sub trees.
@@ -638,7 +638,7 @@ module ProjectLeveling
     
     # Insert a shifted task info in a sorted list
     #
-    # Parameters:
+    # Parameters::
     # * *ioShiftedTasksList* (<em>list<ShiftedTaskInfo_Type></em>): The list
     # * *iShiftedTaskInfo* (<em>ShiftedTaskInfo_Type</em>): The item to insert
     def self.addShiftedTaskInfo(ioShiftedTasksList, iShiftedTaskInfo)
@@ -655,11 +655,11 @@ module ProjectLeveling
 
     # Find an unknown path from a current node.
     #
-    # Parameters:
+    # Parameters::
     # * *iCurrentPathNode* (<em>PathNode_Type</em>): The current path node.
     # * *iCurrentTasksList* (<em>Branch_Type</em>): The current list of assigned tasks
     # * *iShiftedTasksToSolve* (<em>list< [ Task, Integer, Task ] ></em>): The ordered (by importance) tasks list that have to be moved before some others tasks.
-    # Return:
+    # Return::
     # * <em>Branch_Type</em>: The information of branch replacement that leads to a possible better path (or None if none found).
     def self.findUnknownPathReorderingShiftedTasks(iCurrentPathNode, iCurrentTasksList, iShiftedTasksToSolve)
       if ($Debug)
@@ -747,7 +747,7 @@ module ProjectLeveling
     
     # Method that moves a task after another one among an assigned tasks list.
     #
-    # Parameters:
+    # Parameters::
     # * *iTaskToMove* (_Task_): The task we want to move after another.
     # * *iTaskToPass* (_Task_): The task we want to get passed by iTaskToMove.
     # * *ioCurrentTasksList* (<em>Branch_Type</em>): The current assigned tasks list in which we want to perform the move.
@@ -797,11 +797,11 @@ module ProjectLeveling
     
     # Method that validates a possible unknown path.
     #
-    # Parameters:
+    # Parameters::
     # * *iCurrentPathNode* (<em>PathNode_Type</em>): The current path node to start searching from.
     # * *iCurrentTasksList* (<em>Branch_Type</em>): The branch to test
     # * *iShiftedTasksToSolve* (<em>list< [ Task, Integer, Task ] ></em>): The ordered (by importance) tasks list that have to be moved before some others tasks.
-    # Return:
+    # Return::
     # * <em>Branch_Type</em>: The validated path (or None if the path was already tried).
     def self.validateUnknownPath(iCurrentPathNode, iCurrentTasksList, iShiftedTasksToSolve)
       # 1.
@@ -855,10 +855,10 @@ module ProjectLeveling
     
     # Method that takes a tasks' list (meant to be part of an unknown path), and changes its sort to make sure previously shifted tasks will have more chances to not get shifted again.
     #
-    # Parameters:
+    # Parameters::
     # * *iCurrentTasksList* (<em>Branch_Type</em>): The assigned tasks list to reorder.
     # * *iShiftedTasksToSolve* (<em>list< [ Task, Integer, Task ] ></em>): The ordered (by importance) tasks list that have to be moved before some others tasks.
-    # Return:
+    # Return::
     # * <em>Branch_Type</em>: The new assigned tasks list.
     def self.reorderBranch(iCurrentTasksList, iShiftedTasksToSolve)
       if ($Debug)
@@ -903,10 +903,10 @@ module ProjectLeveling
 
     # Method that finds the best path among all the already tried ones.
     #
-    # Parameters:
+    # Parameters::
     # * *iAlreadyTriedPaths* (<em>PathNode_Type</em>): The already tried paths to consider.
     # * *iCurrentTasksList* (<em>Branch_Type</em>): The current tasks list (useful to decide between several possible better paths).
-    # Return:
+    # Return::
     # * <em>list<AssignedTaskID_Type></em>: The branch replacement leading to the possible better path.
     def self.findPossibleBetterPathAlreadyKnown(iAlreadyTriedPaths, iCurrentTasksList)
       if ($Debug)
@@ -942,11 +942,11 @@ module ProjectLeveling
     
     # Return the best path among previously selected ones.
     #
-    # Parameters:
+    # Parameters::
     # * *iAlreadyTriedPaths* (<em>PathNode_Type</em>): The structure that contains the paths to check.
     # * *iCurrentTasksList* (<em>list<AssignedTaskID_Type></em>): The current ordered tasks list.
-    # * *iBestPaths* (<em>list<[list<AssignedTaskID_Type>,PathNode_Type]></em>): The list of all possible best paths elected, with their corresponding path node that we want to force.
-    # Return:
+    # * *iBestPaths* (<em>list< [list<AssignedTaskID_Type>,PathNode_Type] ></em>): The list of all possible best paths elected, with their corresponding path node that we want to force.
+    # Return::
     # * <em>list<AssignedTaskID_Type></em>: The best path.
     # * <em>PathNode_Type</em>: Its corresponding path node to force.
     def self.getBestPathAmongBestShiftedImportancePaths(iAlreadyTriedPaths, iCurrentTasksList, iBestPaths)
@@ -1120,10 +1120,10 @@ module ProjectLeveling
     
     # Find the list of paths that have the least shifted importance among what we already know.
     #
-    # Parameters:
+    # Parameters::
     # * *iCurrentPathNode* (<em>PathNode_Type</em>): The structure that contains the paths to check.
-    # Return:
-    # * <em>list<[list<AssignedTaskID_Type>,Branch_Type]></em>: The list of every path (the task and its assignment's iteration number) that minimizes the shifted importance, along with their corresponding PathNode_Type node in the paths' tree.
+    # Return::
+    # * <em>list< [list<AssignedTaskID_Type>,Branch_Type] ></em>: The list of every path (the task and its assignment's iteration number) that minimizes the shifted importance, along with their corresponding PathNode_Type node in the paths' tree.
     # * <em>ShiftedTaskConsequences_Type</em>: The corresponding consequences
     def self.findSmallestShiftedConsequencesPaths(iCurrentPathNode)
       # 1.
@@ -1215,14 +1215,14 @@ module ProjectLeveling
 
     # Add a path to the memory of already tried paths
     #
-    # Parameters:
+    # Parameters::
     # * *iCurrentPathNode* (<em>PathNode_Type</em>): The current path node to complete
     # * *iTask* (_Task_): The task to be added
     # * *iIterationNbr* (_Integer_): The iteration number to be added
     # * *iConsequences* (<em>ShiftedTaskConsequences_Type</em>): The consequences of this task's assignment
     # * *iInitialImportance* (_Integer_): The initial importance of the task before being assigned
     # * *iAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The current assignment info
-    # Return:
+    # Return::
     # * _Boolean_: Is the current branch an optimal path after adding the task ?
     def self.completeTriedPath(iCurrentPathNode, iTask, iIterationNbr, iConsequences, iInitialImportance, iAssignmentInfo)
       if ($Debug)

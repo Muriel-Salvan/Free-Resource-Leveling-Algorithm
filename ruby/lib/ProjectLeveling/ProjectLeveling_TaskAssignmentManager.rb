@@ -1,5 +1,5 @@
 #--
-# Copyright (c) 2007 - 2011 Muriel Salvan (murielsalvan@users.sourceforge.net)
+# Copyright (c) 2007 - 2012 Muriel Salvan (muriel@x-aeon.com)
 # Licensed under the terms specified in LICENSE file. No warranty is provided.
 #++
 
@@ -10,7 +10,7 @@ module ProjectLeveling
   
     # Assign a possible solution to the current assignment
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (_Task_): The Task being applied
     # * *iTasksListToIgnore* (<em>list<Task></em>): The tasks list we have to ignore due to a recursive call
     # * *iPossibleSolution* (<em>TaskAssignmentSolution_Type</em>): The possible solution
@@ -50,7 +50,7 @@ module ProjectLeveling
     
     # Shift a task' successors based on a new date
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (_Task_): The task that contains all children tasks to shift
     # * *iMinStartDate* (_Date_): The minimal start date for the children tasks
     # * *iTasksListToIgnore* (<em>list<Task></em>): The tasks list we have to ignore due to a recursive call [default to an empty list]
@@ -135,11 +135,11 @@ module ProjectLeveling
 
     # Shift minimal dates of a task
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (_Task_): The task to shift
     # * *iMinStartDate* (_Date_): The new minimal start date
     # * *ioAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The current availability of resources to modify
-    # Return:
+    # Return::
     # * _Boolean_: Is it possible to perform such a shift ?
     # * _Integer_: The delay of the minimal end date.
     def self.shiftTaskMinimalDates(iTask, iMinStartDate, ioAssignmentInfo)
@@ -212,13 +212,13 @@ module ProjectLeveling
     
     # Simple function computing a shift date.
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (_Task_): The task for which the shift is computed
     # * *iDate* (_Date_): The initial date
     # * *iDateHours* (_Integer_): The number of hours to count from in the initial date
     # * *iHoursShift* (_Integer_): The number of hours to count from iDate and iDateHours
     # * *iAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The current availability of resources
-    # Return:
+    # Return::
     # * _Date_: The new date
     # * _Integer_: The number of hours within the date
     def self.computeShiftedDateHours(iTask, iDate, iDateHours, iHoursShift, iAssignmentInfo)
@@ -327,10 +327,10 @@ module ProjectLeveling
 
     # Remove hours present in the minimal schedule
     #
-    # Parameters:
+    # Parameters::
     # * *ioResourceBuffer* (<em>ResourceBuffers_Type</em>): The resource buffers to update
     # * *iHours* (_Integer_): The number of hours we delete from the buffers
-    # Return:
+    # Return::
     # * _Integer_: The number of hours effectively removed from the used buffer
     def self.removeCountedHoursFromResourcesBuffers(ioResourceBuffer, iHours)
       # 1.
@@ -359,7 +359,7 @@ module ProjectLeveling
     
     # Remove chosen resources from other tasks
     #
-    # Parameters:
+    # Parameters::
     # * *iResources* (<em>map<Date,map<Resource,Integer>></em>): The resources we want to remove from the tasks' available resources' lists. For each day, for each resource, the number of hours to remove.
     # * *iTasksListToIgnore* (<em>list<Task></em>): The tasks list we have to ignore due to a recursive call [default to an empty list]
     # * *iMinimalPathImportance* (_Integer_): The minimal importance of already assigned tasks.
@@ -546,7 +546,7 @@ module ProjectLeveling
 
     # Method invoked when the minimal end date of a task has changed
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (_Task_): The task that changed
     # * *iDelay* (_Integer_): The number of days the task's minimal end date has been delayed
     # * *ioAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The current availability of resources to modify

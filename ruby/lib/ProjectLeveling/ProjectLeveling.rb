@@ -1,5 +1,5 @@
 #--
-# Copyright (c) 2007 - 2011 Muriel Salvan (murielsalvan@users.sourceforge.net)
+# Copyright (c) 2007 - 2012 Muriel Salvan (muriel@x-aeon.com)
 # Licensed under the terms specified in LICENSE file. No warranty is provided.
 #++
 
@@ -36,7 +36,7 @@ module ProjectLeveling
     
     # Constructor
     #
-    # Parameters:
+    # Parameters::
     # * *iStartDate* (_Date_): The start date
     # * *iEndDate* (_Date_): The end date
     def initialize(iStartDate, iEndDate)
@@ -71,7 +71,7 @@ module ProjectLeveling
     
     # Constructor
     #
-    # Parameters:
+    # Parameters::
     # * *iName* (_String_): The name of the task (used in debug mode only)
     # * *iPriority* (_Integer_): The priority
     # * *iSizing* (_Integer_): The sizing
@@ -91,7 +91,7 @@ module ProjectLeveling
     
     # Build predecessors
     #
-    # Parameters:
+    # Parameters::
     # * *iTasksList* (<em>list<Task></em>): The list of tasks to consider to populate predecessors
     def self.populatePredecessors(iTasksList)
       iTasksList.each do |iTask|
@@ -103,7 +103,7 @@ module ProjectLeveling
     
     # Build sharing resources tasks IDs
     #
-    # Parameters:
+    # Parameters::
     # * *iTasksList* (<em>list<Task></em>): The list of tasks to consider to populate predecessors
     def self.populateSharingResourcesTasksID(iTasksList)
       # Map storing all partitions: the set of Tasks per set of resources.
@@ -229,7 +229,7 @@ module ProjectLeveling
     
     # Constructor
     #
-    # Parameters:
+    # Parameters::
     # * *iName* (_String_): The name of the resource (used in debug mode only)
     # * *iAvailabilityMap* (<em>map<Date,Integer></em>): The availability calendar
     def initialize(iName, iAvailabilityMap)
@@ -252,7 +252,7 @@ module ProjectLeveling
 
     # Display a tasks' list (debug only)
     #
-    # Parameters:
+    # Parameters::
     # * *iTasksList* (<em>list<Task></em>): The tasks list
     # * *iDetailed* (_Boolean_): Detailed display [optiona = false]
     def self.displayTasksList(iTasksList, iDetailed = false)
@@ -281,12 +281,12 @@ module ProjectLeveling
   
   # The main algorithm
   #
-  # Parameters:
+  # Parameters::
   # * *iTasksList* (<em>list<Task></em>): The list of tasks to level
   # * *iProject* (_Project_): The project
-  # Return:
+  # Return::
   # * <em>AssignmentInfo_Type</em>: The assignment, or nil if impossible
-  # * <em>list<[Task,String]></em>: In case of error, the tasks in error we can't level along with their error message
+  # * <em>list< [Task,String] ></em>: In case of error, the tasks in error we can't level along with their error message
   def self.levelProject(iTasksList, iProject)
     # 1.
     if ($Debug)
@@ -486,12 +486,12 @@ module ProjectLeveling
   # * The distance in the durations (pondered with the priority of the task)
   # * The way resources are assigned (based on user preferences - assignment strategies)
   #
-  # Parameters:
+  # Parameters::
   # * *iSolution* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The possible solution
   # * *iUtopicSolution* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The utopic solution
   # * *iAssignmentStrategies* (<em>list<AssignmentStrategy></em>): The list of assignment strategies to consider
   # * *iProject* (<em>Project</em>): The project
-  # Return:
+  # Return::
   # * _Integer_: The note (the bigger note the worst solution)
   def self.evaluateSolution(iSolution, iUtopicSolution, iAssignmentStrategies, iProject)
     rNote = 0

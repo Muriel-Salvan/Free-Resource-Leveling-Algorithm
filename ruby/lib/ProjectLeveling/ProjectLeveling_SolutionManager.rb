@@ -1,5 +1,5 @@
 #--
-# Copyright (c) 2007 - 2011 Muriel Salvan (murielsalvan@users.sourceforge.net)
+# Copyright (c) 2007 - 2012 Muriel Salvan (muriel@x-aeon.com)
 # Licensed under the terms specified in LICENSE file. No warranty is provided.
 #++
 
@@ -19,7 +19,7 @@ module ProjectLeveling
       
       # Constructor
       #
-      # Parameters:
+      # Parameters::
       # * *iTask* (_Task_): The task
       # * *iIterationNbr* (_Integer_): The iteration number
       def initialize(iTask, iIterationNbr)
@@ -51,7 +51,7 @@ module ProjectLeveling
       
       # Set up from an existing map of resources slots
       #
-      # Parameters:
+      # Parameters::
       # * *iResourcesSlots* (<em>map<Date,map<Resource,Integer>></em>): The resources slot
       # * *iMinStartDate* (_Date_): The minimal start date (do not consider dates before this one)
       def setFromExistingResourcesSlots(iResourcesSlots, iMinStartDate)
@@ -64,7 +64,7 @@ module ProjectLeveling
       
       # Update the dates given a new added date and its corresponding resources availability
       #
-      # Parameters:
+      # Parameters::
       # * *iDate* (_Date_): The date added
       # * *iResourcesInfo* (<em>map<Resource,Integer></em>): The resources availability
       def updateDates(iDate, iResourcesInfo)
@@ -91,7 +91,7 @@ module ProjectLeveling
       
       # Redefine the affectation method to fill in start date, end date and end date hours
       #
-      # Parameters:
+      # Parameters::
       # * *iKey* (_Date_): The day to assign resources to.
       # * *iObject* (<em>map<Resource,Integer></em>): The map of resources to assign on this day, along with their working hours
       def []=(iKey, iObject)
@@ -108,7 +108,7 @@ module ProjectLeveling
       
       # Redefine the clone method, as values have to be cloned also
       #
-      # Return:
+      # Return::
       # * <em>AssignmentInfo_Type</em>: The clone
       def clone
         rClone = AssignmentInfo_Type.new
@@ -161,7 +161,7 @@ module ProjectLeveling
       
       # Redefine the clone method, as some attributes have to be cloned also
       #
-      # Return:
+      # Return::
       # * <em>AssignmentInfoPerTask_Type</em>: The clone
       def clone
         rClone = AssignmentInfoPerTask_Type.new
@@ -219,7 +219,7 @@ module ProjectLeveling
       
       # Constructor
       #
-      # Parameters:
+      # Parameters::
       # * *iCoefficient* (_Integer_): How important this strategy is ?
       def initialize(iCoefficient = 50)
         @Coefficient = iCoefficient
@@ -232,7 +232,7 @@ module ProjectLeveling
       
       # Assign the task to resources for day iDay.
       #
-      # Parameters:
+      # Parameters::
       # * *iDay* (_Date_): The day we want to assign resources for
       # * *iTask* (_Task_): The task we want to assign resources to
       # * *iCurrentAssignment* (<em>map<Date,map<Resource,Integer>></em>): The assignment already made for previous days
@@ -240,7 +240,7 @@ module ProjectLeveling
       # * *iAvailableResources* (<em>map<Resource,Hours></em>): The number of hours per resource that can be assigned for the remaining days of iTask.
       # * *iAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The assignment info
       # * *iMaxHoursNumber* (_Integer_): The maximal number of hours we have to assign
-      # Return:
+      # Return::
       # * <em>map<Resource,Integer></em>: The resources assigned to iTask on day iDay
       def assignDay(iDay, iTask, iCurrentAssignment, iAvailableResourcesForThisDay, iAvailableResources, iAssignmentInfo, iMaxHoursNumber)
         # The result
@@ -297,11 +297,11 @@ module ProjectLeveling
       
       # Measure the assignment
       #
-      # Parameters:
+      # Parameters::
       # * *iTask* (_Task_): The task we want to assign resources to
       # * *iCurrentAssignment* (<em>map<Date,map<Resource,Integer>></em>): The assignment already made for previous days
       # * *iAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The assignment info
-      # Return:
+      # Return::
       # * _Integer_: The measurement
       # * _Integer_: The maximal value the measurement could have if it was perfect
       def measure(iTask, iCurrentAssignment, iAssignmentInfo)
@@ -323,7 +323,7 @@ module ProjectLeveling
 
       # Display a detailed assignment
       #
-      # Parameters:
+      # Parameters::
       # * *iAssignment* (<em>map<Date,map<Resource,Integer>></em>): The assignment
       # * *iMinimalStartDate* (_Date_): The minimal start date to consider for the assignment. If nil, consider all dates. [optional = nil]
       # * *iStrPrefix* (_String_): The string prefix for display. [optional = '']
@@ -343,7 +343,7 @@ module ProjectLeveling
 
       # Display an assigned tasks' list (debug only)
       #
-      # Parameters:
+      # Parameters::
       # * *iAssignedTasksList* (<em>list<AssignedTaskID_Type></em>): The tasks list
       # * *iAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The assignment info that gives importances (can be nil)
       # * *iStrPrefix* (_String_): A prefix to add to each line [optional = '']
@@ -359,9 +359,9 @@ module ProjectLeveling
       
       # Get an assigned tasks' list as a single string (debug only)
       #
-      # Parameters:
+      # Parameters::
       # * *iAssignedTasksList* (<em>list<AssignedTaskID_Type></em>): The tasks list
-      # Return:
+      # Return::
       # * _String_: The assigned tasks list for display
       def self.formatAssignedTasksList(iAssignedTasksList)
         rStrList = []
@@ -373,7 +373,7 @@ module ProjectLeveling
       
       # Display an assignment info
       #
-      # Parameters:
+      # Parameters::
       # * *iAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The assignment info
       # * *iDetailed* (_Boolean_): Do we display all detail of the assignment ?
       def self.displayAssignmentInfo(iAssignmentInfo, iDetailed = false)
@@ -416,7 +416,7 @@ module ProjectLeveling
     
     # Iterate on a ways to assign the task to its available resources.
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (_Task_): The task we want to assign
     # * *iAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The current availability of resources
     # * *iAssignmentStrategies* (<em>list<AssignmentStrategy></em>): The list of assignment strategies to consider
@@ -545,12 +545,12 @@ module ProjectLeveling
     
     # Main recursive method assigning tasks to resources
     #
-    # Parameters:
+    # Parameters::
     # * *iCurrentTasksList* (<em>list<AssignedTaskID_Type></em>): The list of couples (task, assignment iteration number), sorted by importance, that we want to assign to resources. It can be modified internally.
     # * *iAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The availability of resources we can use for this assignment
     # * *iCurrentPathNode* (<em>PathNode_Type</em>): The current node of the branch in the paths tree
     # * *iAssignmentStrategies* (<em>list<AssignmentStrategy></em>): The list of assignment strategies to consider
-    # Return:
+    # Return::
     # * <em>list<AssignmentInfo_Type></em>: The list of possible assignments
     def self.findAssignmentForTaskList(iCurrentTasksList, iAssignmentInfo, iCurrentPathNode, iAssignmentStrategies)
       # 1.
@@ -665,7 +665,7 @@ module ProjectLeveling
 
     # Try a solution
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (_Task_): The task that we are trying to assign now.
     # * *iIterationNbr* (_Integer_): The iteration number of this assignment.
     # * *iAssignmentInfo* (<em>AssignmentInfo_Type</em>): The assignment context in which we want to assign the task.
@@ -676,7 +676,7 @@ module ProjectLeveling
     # * *iInitialTaskImportance* (_Integer_): The initial task's importance.
     # * *iCurrentPathNode* <em>(PathNode_Type</em>): The current node in the already tried paths' tree.
     # * *iAssignmentStrategies* (<em>list<AssignmentStrategy></em>): The list of assignment strategies to consider
-    # Return:
+    # Return::
     # * _Boolean_: Has this possible solution been optimal for this task ?
     def self.tryPossibleSolution(iTask, iIterationNbr, iAssignmentInfo, iPossibleAssignment, iPossibleAssignmentMeasures, ioPossibleAssignments, iRemainingTasksList, iInitialImportance, iCurrentPathNode, iAssignmentStrategies)
       if ($Debug)
@@ -784,7 +784,7 @@ module ProjectLeveling
 
     # Assign a task to its resources
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (Task): The task that we want to assign to the last resources
     # * *iTasksListToIgnore* (<em>list<Task></em>): The tasks list we have to ignore due to a recursive call [default to an empty list]
     # * *iMinimalPathImportance* (_Integer_): The minimal importance of already assigned tasks.

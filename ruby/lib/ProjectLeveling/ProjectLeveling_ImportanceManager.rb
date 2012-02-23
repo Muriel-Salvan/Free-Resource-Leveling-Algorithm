@@ -1,5 +1,5 @@
 #--
-# Copyright (c) 2007 - 2011 Muriel Salvan (murielsalvan@users.sourceforge.net)
+# Copyright (c) 2007 - 2012 Muriel Salvan (muriel@x-aeon.com)
 # Licensed under the terms specified in LICENSE file. No warranty is provided.
 #++
 
@@ -10,7 +10,7 @@ module ProjectLeveling
 
     # Populate importances recursively
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (_Task_): The task for which we populate the importance.
     # * *ioAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The assignment context that contains the maps to be updated
     def self.populateImportances(iTask, ioAssignmentInfo)
@@ -28,7 +28,7 @@ module ProjectLeveling
     
     # Insert the task in a sorted list
     #
-    # Parameters:
+    # Parameters::
     # * *ioTasksList* (<em>list<AssignedTaskID_Type></em>): The tasks list to insert into
     # * *iTask* (_Task_): The task to insert
     # * *iAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The current assignment info
@@ -52,10 +52,10 @@ module ProjectLeveling
 
     # Get sorted tasks list
     #
-    # Parameters:
+    # Parameters::
     # * *iTasksList* (<em>list<Task></em>): The tasks list to sort
     # * *iAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The current assignment info
-    # Return:
+    # Return::
     # * <em>list<AssignedTaskID_Type></em>: The tasks list sorted
     def self.getSortedTasks(iTasksList, iAssignmentInfo)
       # 1.
@@ -119,7 +119,7 @@ module ProjectLeveling
 
     # Update recursively the importance of predecessors
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (_Task_): The task for which we update the predecessors' importances.
     # * *ioAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The current assignment context.
     def self.updatePredecessorsImportances(iTask, ioAssignmentInfo)
@@ -139,10 +139,10 @@ module ProjectLeveling
 
     # Update the importance of a single task (not recursive)
     #
-    # Parameters:
+    # Parameters::
     # * *iTask* (_Task_): The task we want to compute the importance of
     # * *ioAssignmentInfo* (<em>map<Task, AssignmentInfoPerTask_Type></em>): The current availability of resources to modify
-    # Return:
+    # Return::
     # * _Boolean_: Has the importance been effectively changed ?
     def self.updateImportance(iTask, ioAssignmentInfo)
       # 1.
