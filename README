@@ -1,6 +1,3 @@
--- This file is best viewed when processed by rdoc.
-++
-
 = Resource leveling algorithm
 
 Implementations of the resource leveling algorithm.
